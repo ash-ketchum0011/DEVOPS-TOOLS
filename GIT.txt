@@ -191,7 +191,7 @@ ls
 git push --tags
 git push origin <tag_name> #To push a single tag
 
-
+git remote rm origin
 
 
 
