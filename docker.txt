@@ -4,7 +4,7 @@ apt update                             yum update
 apt install docker.io -y          yum install docker 
 docker --version
 docker version
-systemctl status docker(To check docker is active or not)
+systemctl status docker #To check docker is active or not
 #To download docker image go to hub.docker.com
 docker pull centos #It will downlaod centos image #docker pull centos:7 #To pull version 7 of it
 docker images #To check downloaded images #docker images ls
