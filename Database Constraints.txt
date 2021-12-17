@@ -1,0 +1,37 @@
+DATABASE CONSTRAINTS
+Data Integrity, Data consistency, Data Accuracy, Data Reliability
+
+Check Constraints, Unique Constraints, Not null Constraints, Primary key Constraints, Forgein key Constraints
+
+Check Constraints--------
+create table student(student_ID int, Name varchar(20), Age int CHECK(age>=15 and age<=20));        #putting a limit to the values that someone enter into the age column
+
+Unique Constraints--------
+create table student(student_ID int UNIQUE, Name varchar(20), Age int);     #Only unique values are allowed inside the student_ID column
+
+Not Null Constraints----------
+1. Inline constraints 2. Out of line constraints
+
+create table student(student_ID int NOT NULL, Name varchar(20), Age int);
+
+Primary Key Constraints------------
+Primary ke	y have behaviors of both NOT NULL and Unique constraints
+One table have one Primary Key
+PKC is used to uniquely identify each record in a database table
+
+create table student(student_ID int PRIMARY KEY, Name varchar(20), Age int);
+
+#Composite Primary Key-
+create table Observation(student_ID int, course_ID int, score int, PRIMARY KEY(student_ID, course_ID));
+
+FOREIGN KEY CONSTRAINT-------------
+#Forgein key in one table point at primary key in another table
+#FKC is used to identify and enforce the relationships between tables
+
+create table teachers(teacher_ID int PRIMARY KEY, teacher_Name varchar(20) NOT NULL);
+create table student(student_ID int PRIMARY KEY, Name varchar(20), Age int, T_ID int REFERENCE teacher(teacher_ID))
+
+
+
+
+

@@ -14,10 +14,10 @@ ls /var/www/html/
 exit
 echo "<h1> This is testing for port forwarding </h1>" >> test.html
 ls
-docker cp test.html web:/var/www/html #Copying html file to the container
+docker cp test.html web:/var/www/html #Copying html file to the container  #Copy paste the instance IP address into the browser
 docker exec -it web bash
 ls /var/www/html/
-cat /var/www/html/test.html
+cat /var/www/html/test.html             #<instance IP>/test.html
 exit
 
 sudo lsof -i -P -n | grep LISTEN #To see open ports
@@ -27,7 +27,8 @@ docker ps
 docker commit web webimg#creating a image from container
 docker images
 
-****sharing image****
+Sharing Image**************
+SAVE & LOAD method*********************
 docker save webimg > webimg.tar
 ls
 docker rmi webimg
@@ -35,9 +36,10 @@ docker images
 ls
 docker load < webimg.tar #To unzip the .tar file and store it as an image
 
-****Import and Export method****
+Import and Export method****
 docker container run -it --name c1 -d ubuntu
-docker export c1 -o c1.tar #export image file form a container #o is for output
+docker export c1 -o c1.tar #export image file fro
+m a container #o is for output
 ls
 docker import c1.tar img1
 docker images
@@ -61,8 +63,8 @@ docker login
 docker logout
 docker login
 docker push webimg #It will through an error
-docker push userID/webimg #This will get pushed w/o any error #docker push userID/webimg #To pull the image
-#To push the image to the docker hub need not convert it to the .tar file
+docker push userID/webimg #This will get pushed w/o any error to the docker hub website #docker push userID/webimg #To pull the image
+#To push the image to the docker hub need not to convert it to the .tar file
 #.tar is only require when you want to shrare it with someone else
 
 #registry is used to store docker image locally so don't need to go to docker hub and use internet #naming conventional; localhost:5000/imagename
@@ -76,11 +78,10 @@ docker inspect local_registry
 docker image tag webimg localhost:5000/webimg
 docker images
 docker push localhost:5000/webimg #pushing image to the docker registry
-#check it on web by searching: <pasteIPaddress>:5000/v2/_catalog
+#check it on web by searching: <pasteIPaddress>:5000/v2/_catalog   
 ls <paste source address from mounting section inside inspect command>
 ls <paste source address from mounting section inside inspect command>/docker/registry/v2/
-ls <paste source address from mounting section inside inspect command>/docker/registry/v2/repositories/
-
+ls <paste source address from mounting section inside inspect command>/docker/registry/v2/repositories
 #pulling image from registry
 docker images
 docker rmi localhost:5000/webimg
@@ -88,20 +89,21 @@ docker images
 docker pull localhost:5000/webimg
 docker images
 
+DOCKER FILE******************************
 #Docker file #used for automation #To create custom docker image
 #The docker file have set of instructions and there are some resereved words for it
 vi Dockerfile
-********************PASTE THIS SCRPIT INTO THE DOCKER FILE************************
+---------------------------------------PASTE THIS SCRPIT INTO THE DOCKER FILE-----------------------------------------------------------
 FROM ubuntu:18.04  #FROM keyword to download base image #mentioning the version is helpful and better way to do it
 ARG DEBIAN_FORNTEND=non intreractive #ARG argument #To put a default value to the questions asked like geographical related questions asked #like when we installed apache on container
 RUN apt-get update #adding an instruction layer #apt repository getting updated
 RUN apt-get -y install apache2 #adding an instruction layer #install apache web server
 ADD test.html /var/www/html #adding and copy files from local system # replace . with tets.html if you want to choose every files
 ENTRYPOINT apachetl -D FOREGROUND #ENTRYPOINT and CFD are used to run the command as soon as container get started my apache service should get started
-ENV name DEVOPS #ENV is the envirnoment varible which are available globally to your system #it will create and environment varible for image #name is env variable and its value is devops
+ENV name DEVOPS #ENV is the envirnoment varible which are available globally to your system #it will create an environment varible for image #name is env variable and its value is devops
 #EXPOSE is used for exposing a port number
 *****************************SAVE AND EXIT THE FILE***********************************
-docker built . -t myimg #It will create the image from the dockerfile
+docker build . -t myimg #It will create the image from the dockerfile
 docker images
 docker container run -it --name m1 -d myimg
 docker ps

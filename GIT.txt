@@ -104,7 +104,7 @@ cd Repo1/
 vi .git/config 
 #change https url with SSH url
 ssh-keygen
-#copy name of the file public key is saved in
+#copy name of the file public key is saved in like: my.txt.pub
 cat (paste the file name here)
 #copy key and open github > settings > Deploy keys > add deploy key> paste key in "key" > allow write access > click "add key"
 
